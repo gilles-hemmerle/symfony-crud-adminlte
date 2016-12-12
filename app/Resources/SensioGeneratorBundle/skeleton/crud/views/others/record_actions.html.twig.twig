@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-xs-12">
+        <a class="btn btn-default" href="{{ "{{ path('" ~ route_name_prefix ~ "_index') }}" }}"><i class="fa fa-list"></i> {{ "{% trans %}" }}Back to the list{{ "{% endtrans %}" }}</a>
+        {%- if ('edit' in actions) and (not hide_edit) %}
+
+        <a class="btn btn-default" href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}"><i class="fa fa-edit"></i> {{ "{% trans %}" }}Edit{{ "{% endtrans %}" }}</a>
+
+        {%- endif %}
+
+        {%- if ('delete' in actions) and (not hide_delete) %}
+        
+            {{ '{{ form_start(delete_form, { \'attr\': {\'class\': \'pull-right\'} }) }}' }}
+
+                <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> {{ "{% trans %}" }}Delete{{ "{% endtrans %}" }}</button>
+
+            {{ '{{ form_end(delete_form) }}' }}
+
+        {%- endif %}
+
+    </div>
+</div>

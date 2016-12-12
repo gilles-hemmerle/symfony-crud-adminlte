@@ -1,0 +1,62 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block title %}
+    Admin panel
+{% endblock %}
+
+{% block page_title %}
+    No title
+{% endblock %}
+
+{% block page_subtitle %}
+    No subtitle
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/1_app.css') }}" />
+    {# Put the specific CSS files here #}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# Put the specific JS files here #}
+{% endblock %}
+
+{% block avanzu_admin_footer %}
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0
+        </div>
+        <strong>Copyright &copy; 2016 <a href="http://le-coin-du-dev.fr">LeCoinDuDev</a>.</strong> Tous droits réservés.
+    </footer>
+{% endblock %}
+
+{% block avanzu_logo %}
+        <a href="{{ url('homepage') }}" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            <strong>LeCoinDuDev</strong> Admin
+        </a>
+    {% endblock %}
+
+
+{% block page_content %}
+
+    {% block flash_messages %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="callout callout-info">
+                <h4>{% trans %}Notice!{% endtrans %}</h4>
+                <p>{{ flash_message }}</p>
+            </div>
+        {% endfor %}
+
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="callout callout-danger">
+                <h4>{% trans %}Error!{% endtrans %}</h4>
+                <p>{{ flash_message }}</p>
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block body '' %}
+{% endblock %}

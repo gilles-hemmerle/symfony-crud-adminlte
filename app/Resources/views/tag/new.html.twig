@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}
+    {% trans %}New Tag{% endtrans %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% trans %}Please complete the following form{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	<div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">{% trans %}Form{% endtrans %}</h3>
+        </div>
+		{{ form_start(form) }}
+			<div class="box-body">
+		        {{ form_widget(form) }}
+	        </div>
+	        <div class="box-footer">
+	            <button type="submit" class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
+	        </div>
+	    {{ form_end(form) }}
+	</div>
+    
+
+<div class="row">
+    <div class="col-xs-12">
+        <a class="btn btn-default" href="{{ path('admin_tag_index') }}"><i class="fa fa-list"></i> {% trans %}Back to the list{% endtrans %}</a>
+    </div>
+</div>
+{% endblock %}
+

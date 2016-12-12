@@ -1,0 +1,6 @@
+.dataTables_wrapper > .row {
+    padding: 10px;
+}
+code {
+    word-break: break-all !important;
+}
