@@ -25,6 +25,12 @@ php app/console fos:user:create user1
 php app/console fos:user:promote user1 ROLE_ADMIN
 ```
 
+And run the server
+
+```bash
+php app/console server:start
+```
+
 
 Create a CRUD application (exemple)
 -----------------------------------
