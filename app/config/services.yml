@@ -9,3 +9,8 @@ services:
         arguments: ['@security.context']
         tags:
             - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
+    my_admin_bundle.show_user_listener:
+        class: AppBundle\EventListener\ShowUserListener
+        arguments: ['@security.context']
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }

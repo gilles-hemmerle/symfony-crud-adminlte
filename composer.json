@@ -1,5 +1,6 @@
 {
     "name": "gilles-hemmerle/symfony-crud-adminlte",
+    "version": "1.0.0",
     "license": "MIT",
     "type": "project",
     "description": "Projet Symfony implémentant un CRUD avec le template AdminLTE",

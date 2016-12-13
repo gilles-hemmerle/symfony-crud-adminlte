@@ -1,69 +1,165 @@
-Symfony Standard Edition
-========================
+Create a Symfony CRUD application with AdminLTE template
+========================================================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+This repository allows you to create a fresh new install of symfony including some bundles to start developping a CRUD application based on the AdminLTE template.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+The list of bundles added to the project are the following :
 
-What's inside?
---------------
 
-The Symfony Standard Edition is configured with the following defaults:
+Start a project
+---------------
 
-  * An AppBundle you can use to start coding;
+Run the following command and you'll be able to run your initial symfony project
 
-  * Twig as the only configured template engine;
+    composer create-project --prefer-dist --stability=dev gilles-hemmerle/symfony-crud-adminlte:master myApp
+    cd myApp
+    php app/console doctrine:schema:update --force
 
-  * Doctrine ORM/DBAL;
 
-  * Swiftmailer;
+Then create a user to test the project
+    php app/console fos:user:create user1
+    php app/console fos:user:promote user1 ROLE_ADMIN
 
-  * Annotations enabled for everything.
 
-It comes pre-configured with the following bundles:
+Create a CRUD application (exemple)
+-----------------------------------
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+Let's create an article and a tag CRUD 
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+### First, Create the two entities
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+* Create the Article entity
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+    <?php
+    // src/AppBundle/Entity/Article.php
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+    namespace AppBundle\Entity;
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+    use Doctrine\ORM\Mapping as ORM;
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+    /**
+     * Articles
+     *
+     * @ORM\Table(name="article")
+     * @ORM\Entity
+     *
+     */
+    class Article
+    {
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="slug", type="string", length=120, nullable=false)
+         */
+        private $slug;
 
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="article_title", type="string", length=120, nullable=false)
+         */
+        private $articleTitle;
 
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="article_content", type="text")
+         */
+        private $articleContent;
 
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="id", type="integer")
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="IDENTITY")
+         */
+        private $id;
 
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
+        /**
+         * @var \Doctrine\Common\Collections\Collection
+         *
+         * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", inversedBy="articles")
+         * @ORM\JoinTable(name="articles_tags")
+         */
+        private $tags;
 
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
+        /**
+         * Constructor
+         */
+        public function __construct()
+        {
+            $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
 
-Enjoy!
+        }
 
-[1]:  https://symfony.com/doc/2.8/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/doctrine.html
-[8]:  https://symfony.com/doc/2.8/templating.html
-[9]:  https://symfony.com/doc/2.8/security.html
-[10]: https://symfony.com/doc/2.8/email.html
-[11]: https://symfony.com/doc/2.8/logging.html
-[12]: https://symfony.com/doc/2.8/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+        public function __toString() {
+            return $this->articleTitle;
+        }
+    }
+
+* Then run the following command to generate the getter / setters
+
+    php app/console generate:doctrine:entities AppBundle:Article --no-backup
+
+
+* Create the Tag entity 
+
+
+    <?php
+
+    namespace AppBundle\Entity;
+
+    use Doctrine\ORM\Mapping as ORM;
+
+    /**
+     * Articles
+     *
+     * @ORM\Table(name="tag")
+     * @ORM\Entity
+     *
+     */
+    class Tag
+    {
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="tag", type="string", length=45, nullable=false)
+         */
+        private $tag;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="id", type="integer")
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="IDENTITY")
+         */
+        private $id;
+
+        /**
+         * @var \Doctrine\Common\Collections\Collection
+         *
+         * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Article", mappedBy="tags")
+         */
+        private $articles;
+
+        /**
+         * Constructor
+         */
+        public function __construct()
+        {
+            $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+
+        }
+
+        public function __toString() {
+            return $this->tag;
+        }
+    }
+
+* Then run the following command to generate the getter / setters
+
+    php app/console generate:doctrine:entities AppBundle:Tag --no-backup
+
+

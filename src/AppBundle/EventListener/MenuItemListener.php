@@ -35,9 +35,9 @@ class MenuItemListener {
         
         if ($this->securityContext->isGranted('ROLE_ADMIN')) {
             $menuItems = array(
-                //$user = new MenuItemModel('UserEntry', 'User Management', '', array(/* options */), 'iconclasses fa fa-users'),
-                $articles = new MenuItemModel('ArticlesList', 'Articles', 'admin_article_index', array(/* options */), 'iconclasses fa fa-newspaper-o'),
-                $tags = new MenuItemModel('TagsList', 'Tags', 'admin_tag_index', array(/* options */), 'fa fa-tags'),
+                // $user = new MenuItemModel('UserEntry', 'User Management', '', array(/* options */), 'iconclasses fa fa-users'),
+                // $articles = new MenuItemModel('ArticlesList', 'Articles', 'admin_article_index', array(/* options */), 'iconclasses fa fa-newspaper-o'),
+                // $tags = new MenuItemModel('TagsList', 'Tags', 'admin_tag_index', array(/* options */), 'fa fa-tags'),
             );
             
         } else {
