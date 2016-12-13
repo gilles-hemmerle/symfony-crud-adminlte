@@ -11,15 +11,19 @@ Start a project
 
 Run the following command and you'll be able to run your initial symfony project
 
-    composer create-project --prefer-dist --stability=dev gilles-hemmerle/symfony-crud-adminlte:master myApp
-    cd myApp
-    php app/console doctrine:schema:update --force
+```bash
+composer create-project --prefer-dist --stability=dev gilles-hemmerle/symfony-crud-adminlte:master myApp
+cd myApp
+php app/console doctrine:schema:update --force
+```
 
 
 Then create a user to test the project
 
-    php app/console fos:user:create user1
-    php app/console fos:user:promote user1 ROLE_ADMIN
+```bash
+php app/console fos:user:create user1
+php app/console fos:user:promote user1 ROLE_ADMIN
+```
 
 
 Create a CRUD application (exemple)
@@ -31,7 +35,7 @@ Let's create an article and a tag CRUD
 
 * Create the Article entity
 
-```
+```php
     <?php
     // src/AppBundle/Entity/Article.php
 
@@ -103,14 +107,14 @@ Let's create an article and a tag CRUD
 
 * Then run the following command to generate the getter / setters
 
-```
+```bash
 php app/console generate:doctrine:entities AppBundle:Article --no-backup
 ```
 
 
 * Create the Tag entity 
 
-```
+```php
     <?php
 
     namespace AppBundle\Entity;
@@ -165,14 +169,17 @@ php app/console generate:doctrine:entities AppBundle:Article --no-backup
 ```
 
 * Then run the following command to generate the getter / setters
-```
+
+```bash
 php app/console generate:doctrine:entities AppBundle:Tag --no-backup
 ```
 
 ### Secondly, generate the CRUD
     
-    php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite
-    php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite
+```bash
+php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite
+php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite
+```
 
 You are now able to show your pages with the followin urls :
 * /admin/tag
