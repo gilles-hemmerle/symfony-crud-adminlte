@@ -183,13 +183,13 @@ php app/console generate:doctrine:entities AppBundle:Tag --no-backup
 ### Secondly, generate the CRUD
     
 ```bash
-php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite
-php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite
+php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite --no-interaction
+php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite --no-interaction
 ```
 
 You are now able to show your pages with the followin urls :
-* /admin/tag
-* /admin/article
+* [http://127.0.0.1:8000/admin/tag](http://127.0.0.1:8000/admin/tag)
+* [http://127.0.0.1:8000/admin/article](http://127.0.0.1:8000/admin/article)
 
 Manage the menu
 ---------------

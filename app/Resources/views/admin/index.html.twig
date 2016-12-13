@@ -156,8 +156,8 @@ class Tag
 php app/console generate:doctrine:entities AppBundle:Tag --no-backup</code></pre>
 
                     <h3>Generate CRUD</h3>
-                    <pre><code>php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite
-php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite</code></pre>
+                    <pre><code>php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite --no-interaction
+php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite --no-interaction</code></pre>
 
                     <p>And ... That's it ! If you correctly followed the steps, you'll be able to run the following urls :
                         <ul>
