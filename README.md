@@ -4,6 +4,10 @@ Create a Symfony CRUD application with AdminLTE template
 This repository allows you to create a fresh new install of symfony including some bundles to start developping a CRUD application based on the AdminLTE template.
 
 The list of bundles added to the project are the following :
+* SensioFrameworkExtraBundle,
+* FOSUserBundle,
+* AsseticBundle,
+* AvanzuAdminThemeBundle,
 
 
 Start a project
