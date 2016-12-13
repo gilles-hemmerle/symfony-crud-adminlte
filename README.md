@@ -17,6 +17,7 @@ Run the following command and you'll be able to run your initial symfony project
 
 
 Then create a user to test the project
+
     php app/console fos:user:create user1
     php app/console fos:user:promote user1 ROLE_ADMIN
 
@@ -30,7 +31,8 @@ Let's create an article and a tag CRUD
 
 * Create the Article entity
 
-    <?php
+```
+    <?php
     // src/AppBundle/Entity/Article.php
 
     namespace AppBundle\Entity;
@@ -97,15 +99,18 @@ Let's create an article and a tag CRUD
             return $this->articleTitle;
         }
     }
+```
 
 * Then run the following command to generate the getter / setters
 
-    php app/console generate:doctrine:entities AppBundle:Article --no-backup
+```
+php app/console generate:doctrine:entities AppBundle:Article --no-backup
+```
 
 
 * Create the Tag entity 
 
-
+```
     <?php
 
     namespace AppBundle\Entity;
@@ -157,10 +162,12 @@ Let's create an article and a tag CRUD
             return $this->tag;
         }
     }
+```
 
 * Then run the following command to generate the getter / setters
-
-    php app/console generate:doctrine:entities AppBundle:Tag --no-backup
+```
+php app/console generate:doctrine:entities AppBundle:Tag --no-backup
+```
 
 ### Secondly, generate the CRUD
     
