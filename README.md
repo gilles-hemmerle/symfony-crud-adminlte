@@ -162,4 +162,19 @@ Let's create an article and a tag CRUD
 
     php app/console generate:doctrine:entities AppBundle:Tag --no-backup
 
+### Secondly, generate the CRUD
+    
+    php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite
+    php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite
+
+You are now able to show your pages with the followin urls :
+* /admin/tag
+* /admin/article
+
+Manage the menu
+---------------
+
+Now that you have created the CRUD pages. You will need a sidebar to show your pages to your users. This is achieved in the src/AppBundle/EventListener/MenuItemListener.php file.
+
+The entries for the article and tag sections are already in. You'll just have to uncomment them in order to show them in the sidebar. You can have more information in the documentation of [https://github.com/avanzu/AdminThemeBundle/blob/master/Resources/docs/sidebar_navigation.md](the Avanzu bundle).
 

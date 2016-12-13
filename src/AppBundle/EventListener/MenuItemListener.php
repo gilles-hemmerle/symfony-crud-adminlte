@@ -28,20 +28,19 @@ class MenuItemListener {
 
     protected function getMenu(Request $request) {
         // Build your menu here by constructing a MenuItemModel array
-        
-        if (!$this->securityContext->getToken()) {
-            return null;
-        }
-        
-        if ($this->securityContext->isGranted('ROLE_ADMIN')) {
-            $menuItems = array(
-                // $user = new MenuItemModel('UserEntry', 'User Management', '', array(/* options */), 'iconclasses fa fa-users'),
-                // $articles = new MenuItemModel('ArticlesList', 'Articles', 'admin_article_index', array(/* options */), 'iconclasses fa fa-newspaper-o'),
-                // $tags = new MenuItemModel('TagsList', 'Tags', 'admin_tag_index', array(/* options */), 'fa fa-tags'),
-            );
-            
-        } else {
-            $menuItems = array();
+        $menuItems = array();
+
+        if ($this->securityContext->getToken()) {
+            if ($this->securityContext->isGranted('ROLE_ADMIN')) {
+                $menuItems = array(
+                    // $user = new MenuItemModel('UserEntry', 'User Management', '', array(/* options */), 'iconclasses fa fa-users'),
+                    // $articles = new MenuItemModel('ArticlesList', 'Articles', 'admin_article_index', array(/* options */), 'iconclasses fa fa-newspaper-o'),
+                    // $tags = new MenuItemModel('TagsList', 'Tags', 'admin_tag_index', array(/* options */), 'fa fa-tags'),  
+                );
+                
+            } else {
+                $menuItems = array();
+            }
         }
 
         return $this->activateByRoute($request->get('_route'), $menuItems);

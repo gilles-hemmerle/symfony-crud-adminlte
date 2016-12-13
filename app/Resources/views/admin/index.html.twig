@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}
+    {% trans %}Admin page{% endtrans %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% trans %}Welcome to the admin panel{% endtrans %}
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{% trans %}How to generate a new CRUD{% endtrans %}</h3>
+                    <div class="box-tools"></div>                    
+                </div>
+                
+                <div class="box-body">
+                    <p>
+                        Let's see an example how to generate a simple CRUD for 2 linked tables
+                    </p>
+
+                    <h2>Create the entities</h2>
+
+                    <h3>Entity Article</h3>
+                    <pre><code>{{ '
+// src/AppBundle/Entity/Article.php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Articles
+ *
+ * @ORM\Table(name="article")
+ * @ORM\Entity
+ *
+ */
+class Article
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=120, nullable=false)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="article_title", type="string", length=120, nullable=false)
+     */
+    private $articleTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="article_content", type="text")
+     */
+    private $articleContent;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", inversedBy="articles")
+     * @ORM\JoinTable(name="articles_tags")
+     */
+    private $tags;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+
+    public function __toString() {
+        return $this->articleTitle;
+    }
+}' }}
+                    </code></pre>
+
+                    <h3>Entity Tag</h3>
+                    <pre><code>{{ '
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Articles
+ *
+ * @ORM\Table(name="tag")
+ * @ORM\Entity
+ *
+ */
+class Tag
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tag", type="string", length=45, nullable=false)
+     */
+    private $tag;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Article", mappedBy="tags")
+     */
+    private $articles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+
+    public function __toString() {
+        return $this->tag;
+    }
+}' }}
+                    </code></pre>
+
+                    <h3>Generate getters and setters</h3>
+                    <pre><code>php app/console generate:doctrine:entities AppBundle:Article --no-backup
+php app/console generate:doctrine:entities AppBundle:Tag --no-backup</code></pre>
+
+                    <h3>Generate CRUD</h3>
+                    <pre><code>php app/console doctrine:generate:crud --entity=AppBundle:Tag --route-prefix=/admin/tag --with-write --overwrite
+php app/console doctrine:generate:crud --entity=AppBundle:Article --route-prefix=/admin/article --with-write --overwrite</code></pre>
+
+                    <p>And ... That's it ! If you correctly followed the steps, you'll be able to run the following urls :
+                        <ul>
+                            <li><a href="{{ url('admin_index') }}article">{{ url('admin_index') }}article</a></li>
+                            <li><a href="{{ url('admin_index') }}tag">{{ url('admin_index') }}tag</a></li>
+                        </ul>
+                    </p>
+
+                    <h2>Manage the menu</h2>
+                    <p>Now that you have created the CRUD pages. You will need a sidebar to show your pages to your users. This is achieved in the <code>src/AppBundle/EventListener/MenuItemListener.php</code> file.</p>
+                    <p>
+                        The entries for the article and tag sections are already in. You'll just have to uncomment them in order to show them in the sidebar. You can have more information in the documentation of <a href="https://github.com/avanzu/AdminThemeBundle/blob/master/Resources/docs/sidebar_navigation.md">the Avanzu bundle</a>.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
